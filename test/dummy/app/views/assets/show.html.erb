@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @asset.name %>
+</p>
+
+<p>
+  <b>Purchase date:</b>
+  <%= @asset.purchase_date %>
+</p>
+
+<p>
+  <b>Purchase price:</b>
+  <%= @asset.purchase_price %>
+</p>
+
+<p>
+  <b>Lifetime:</b>
+  <%= @asset.lifetime %>
+</p>
+
+<p>
+  <b>Convention:</b>
+  <%= @asset.get_convention.to_s %>
+</p>
+
+<p>
+	<b>This year's convention rate:</b>
+	<%= @asset.get_convention_rate(params[:search_year].to_i) %>
+</p>
+
+<p>
+	<b>Remaining Life:</b>
+	<%= @asset.get_remaining_life(params[:search_year].to_i)%>
+</p>
+
+<p>
+	<b>Adjusted Basis:</b>
+	<%= @asset.get_adjusted_basis(params[:search_year].to_i)%>
+</p>
+<p>
+	<b>Deprication Amount:</b>
+	<%= @asset.get_deprication_amount(params[:search_year].to_i)%>
+
+<form>
+	Asset Year Date:
+	<input type="text" name="search_year" />
+	<input type="submit" value="FIND DEPRECIATION FOR YEAR">
+</form>
+
+<%= link_to 'Edit', edit_asset_path(@asset) %> |
+<%= link_to 'Back', assets_path %>
