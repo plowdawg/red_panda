@@ -80,4 +80,9 @@ class AssetsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def tax_year
+    puts "PARAMS: #{params}"
+    @assets = Asset.where("#{Asset.agnostic_date_add("purchase_date","lifetime year")} > ? AND purchase_date < ?",Date.new(params[:tax_year].to_i,1,1),Date.new(params[:tax_year].to_i,1,1)).all
+  end
 end

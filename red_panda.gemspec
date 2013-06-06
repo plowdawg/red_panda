@@ -7,13 +7,13 @@ require "red_panda/version"
 Gem::Specification.new do |s|
   s.name        = "red_panda"
   s.version     = RedPanda::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RedPanda."
-  s.description = "TODO: Description of RedPanda."
+  s.authors     = ["Travis Pessetto"]
+  s.email       = ["travis.pessetto@es3inc.com"]
+  s.homepage    = "http://www.es3inc.com"
+  s.summary     = "A library for determining MACRS Straight Line Depreciation."
+  s.description = "Library to determine MACRS Straight Line Depreciation of assets.."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.13"

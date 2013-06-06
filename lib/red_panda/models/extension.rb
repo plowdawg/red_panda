@@ -44,5 +44,10 @@ module RedPanda
       get_adjusted_basis(year) * get_convention_rate(year) * (1.0/get_remaining_life(year).to_i)
     end
     
+    def self.find_assets_still_availible(*args)
+      model = self.class.name.constantize
+      
+    end
+    
   end
 end
