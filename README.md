@@ -68,7 +68,7 @@ Year can be any of the following:
 - Month
 - Year
 
-The method `agnostic_date_add` does not support all databases and may not be tested on some.  The following have implementations
+The method `agnostic_date_add` does not support all databases and may not be tested on some.  The following adapters have implementations
 
 - Sqlite3 (implemented and tested)
 - MySql2 (implemented not tested)
@@ -79,8 +79,18 @@ The method `agnostic_date_add` does not support all databases and may not be tes
 ###How to get deductions for assets placed in service before the tax year which have not expired:
 
 ```ruby
-@assets = Asset.where(agnostic_date_add("purchase_date","lifetime year")+"> ? AND purchase_date < ?",Date.today,Date.today).all
+@assets = Asset.where("#{agnostic_date_add("purchase_date","lifetime year")}> ? AND purchase_date < ?",Date.today,Date.today).all
 ```
+
+Then we need to sum the depriciations by year therefore:
+
+```ruby
+@assets.sum{|asset|asset.get_deprication_amount(params[:tax_year].to_i)}
+```
+
+##CAUTIONS
+This gem uses floating number calculations which are known to have problems in some calculations and accuracy cannot be trusted.  For accuracy
+it is advised to store all currency objects as an integer and later inject the decimal.
 
 
 This project rocks and uses MIT-LICENSE.

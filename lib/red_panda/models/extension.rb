@@ -7,8 +7,10 @@ module RedPanda
       model = self.class.name.constantize
       date = Date.new(self.send(RedPanda.col_placed_in_service).year,1,1)
       assets = model.where("#{RedPanda.col_placed_in_service} >= ? and #{RedPanda.col_placed_in_service} < ?",date,date.next_year).all
-      last_quarter_count = assets.count{|asset| !!(Date::MONTHNAMES[asset.send(RedPanda.col_placed_in_service).month] =~ /(oct|nov|dec)/i)}
-      if (last_quarter_count.to_f/assets.size) < 0.4
+      #needs to be 40% of basis
+      last_quarter_basis = assets.inject(0.0){|sum,asset| (!!(Date::MONTHNAMES[asset.send(RedPanda.col_placed_in_service).month] =~ /(oct|nov|dec)/i))? sum + asset.send(RedPanda.col_init_val) : sum} 
+      total_basis = assets.sum{|asset| asset.send(RedPanda.col_init_val)}
+      if (last_quarter_basis/total_basis) < 0.4
          convention = RedPanda::HalfYear.new 
       else
         convention = RedPanda::MidQuarter.new

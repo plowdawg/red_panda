@@ -3,4 +3,28 @@
 	<b>Asset Name:</b>
 	<%= asset.name %>
 </p>
+<p>
+	<b>Remaining Life:</b>
+	<%= asset.get_remaining_life(params[:tax_year].to_i) %>
+</p>
+<p>
+	<b>This years depreciation amount:</b>
+	<%= asset.get_deprication_amount(params[:tax_year].to_i) %>
+</p>
+<p>
+	<b>Convention used:</b>
+	<%= asset.get_convention.to_s%>
+</p>
+<p>
+	<b>Placed in service:</b>
+	<%= asset.send(RedPanda.col_placed_in_service)%>
+</p>
+<hr />
+
 <%end%>
+
+<p>
+	<b>Total Deprication this year:</b>
+	<%= total = @assets.sum{|asset|asset.get_deprication_amount(params[:tax_year].to_i)}%>
+	<pre><%= total.to_yaml %></pre>
+</p>
